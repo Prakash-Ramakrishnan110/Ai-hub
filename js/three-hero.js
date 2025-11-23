@@ -1,15 +1,29 @@
 import * as THREE from 'three';
-import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
-// Configuration
+// Adaptive performance configuration
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const isTablet = /(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(navigator.userAgent);
+const cpuCores = navigator.hardwareConcurrency || 2;
+
+// Adaptive quality settings based on device
+const QUALITY = {
+    HIGH: cpuCores >= 8,
+    MEDIUM: cpuCores >= 4 && !isMobile,
+    LOW: cpuCores < 4 || isMobile || isTablet
+};
+
+// Optimized configuration - always enabled but scaled
 const CONFIG = {
-    brainParticles: 200,
+    brainParticles: QUALITY.HIGH ? 80 : QUALITY.MEDIUM ? 50 : 30,
     connectionDistance: 150,
-    floatingSpheres: 8,
-    backgroundParticles: 500,
-    mouseInfluence: 0.0005
+    maxConnections: QUALITY.HIGH ? 100 : QUALITY.MEDIUM ? 60 : 30,
+    floatingSpheres: QUALITY.HIGH ? 4 : QUALITY.MEDIUM ? 3 : 2,
+    backgroundParticles: QUALITY.HIGH ? 150 : QUALITY.MEDIUM ? 80 : 40,
+    enableBloom: QUALITY.HIGH || QUALITY.MEDIUM,
+    enableWaves: !QUALITY.LOW,
+    geometryDetail: QUALITY.HIGH ? 12 : QUALITY.MEDIUM ? 8 : 6,
+    targetFPS: 60,
+    updateInterval: QUALITY.LOW ? 2 : 1  // Update every N frames
 };
 
 let scene, camera, renderer, composer;
@@ -17,6 +31,9 @@ let brain, particles, floatingSpheres = [];
 let hologramCube, waves = [];
 let mouseX = 0, mouseY = 0;
 let targetRotationX = 0, targetRotationY = 0;
+let frameCount = 0;
+let lastTime = Date.now();
+let fps = 60;
 
 function init() {
     const container = document.getElementById('canvas-container');
@@ -24,72 +41,76 @@ function init() {
 
     // Scene
     scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x000000, 0.0005);
+    scene.fog = new THREE.FogExp2(0x000000, 0.0008);
 
     // Camera
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 5000);
     camera.position.z = 1000;
 
-    // Renderer
+    // Renderer with optimizations
     renderer = new THREE.WebGLRenderer({
-        antialias: true,
+        antialias: QUALITY.HIGH,
         alpha: true,
-        powerPreference: "high-performance"
+        powerPreference: "high-performance",
+        stencil: false,
+        depth: true
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // Adaptive pixel ratio
+    const pixelRatio = QUALITY.HIGH ? Math.min(window.devicePixelRatio, 2) :
+        QUALITY.MEDIUM ? Math.min(window.devicePixelRatio, 1.5) : 1;
+    renderer.setPixelRatio(pixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.toneMapping = THREE.ReinhardToneMapping;
     container.appendChild(renderer.domElement);
 
-    // Post-processing for bloom/glow
-    composer = new EffectComposer(renderer);
-    const renderPass = new RenderPass(scene, camera);
-    composer.addPass(renderPass);
-
-    const bloomPass = new UnrealBloomPass(
-        new THREE.Vector2(window.innerWidth, window.innerHeight),
-        1.5,  // strength
-        0.4,  // radius
-        0.85  // threshold
-    );
-    composer.addPass(bloomPass);
-
-    // Create 3D elements
+    // Create 3D elements with adaptive quality
     createAIBrain();
     createFloatingSpheres();
-    createHologramCube();
-    createWaves();
+    if (CONFIG.enableWaves) {
+        createHologramCube();
+        createWaves();
+    }
     createBackgroundParticles();
 
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0x005CFF, 0.5);
+    // Optimized lighting
+    const ambientLight = new THREE.AmbientLight(0x005CFF, 0.4);
     scene.add(ambientLight);
 
-    const pointLight1 = new THREE.PointLight(0x005CFF, 2, 1500);
+    const pointLight1 = new THREE.PointLight(0x005CFF, 1.5, 1500);
     pointLight1.position.set(300, 300, 300);
     scene.add(pointLight1);
 
-    const pointLight2 = new THREE.PointLight(0x7F00FF, 2, 1500);
+    const pointLight2 = new THREE.PointLight(0x7F00FF, 1.5, 1500);
     pointLight2.position.set(-300, -300, -300);
     scene.add(pointLight2);
 
-    // Event Listeners
-    window.addEventListener('resize', onWindowResize);
-    document.addEventListener('mousemove', onMouseMove);
+    // Event Listeners with throttling
+    window.addEventListener('resize', onWindowResize, { passive: true });
 
-    // Animation Loop
+    let mouseMoveTimeout;
+    document.addEventListener('mousemove', (event) => {
+        if (mouseMoveTimeout) return;
+        mouseMoveTimeout = setTimeout(() => {
+            onMouseMove(event);
+            mouseMoveTimeout = null;
+        }, 16);
+    }, { passive: true });
+
+    // Start animation loop
     animate();
+
+    console.log(`3D initialized with ${QUALITY.HIGH ? 'HIGH' : QUALITY.MEDIUM ? 'MEDIUM' : 'LOW'} quality`);
 }
 
 function createAIBrain() {
     const brainGroup = new THREE.Group();
 
-    // Create nodes
-    const nodeGeometry = new THREE.SphereGeometry(4, 16, 16);
+    // Optimized node geometry
+    const nodeGeometry = new THREE.SphereGeometry(4, CONFIG.geometryDetail, CONFIG.geometryDetail);
     const nodeMaterial = new THREE.MeshBasicMaterial({
         color: 0x005CFF,
         transparent: true,
-        opacity: 0.9
+        opacity: 0.8
     });
 
     const positions = [];
@@ -108,32 +129,37 @@ function createAIBrain() {
 
         const node = new THREE.Mesh(nodeGeometry, nodeMaterial.clone());
         node.position.set(x, y, z);
+        node.matrixAutoUpdate = false;  // Performance optimization
+        node.updateMatrix();
 
-        // Glow pulse animation data
         node.userData = {
             pulsePhase: Math.random() * Math.PI * 2,
-            pulseSpeed: 0.02 + Math.random() * 0.01
+            pulseSpeed: 0.015 + Math.random() * 0.01,
+            baseScale: 1
         };
 
         brainGroup.add(node);
         nodes.push(node);
     }
 
-    // Create connections
+    // Optimized connections
     const lineMaterial = new THREE.LineBasicMaterial({
         color: 0x005CFF,
         transparent: true,
-        opacity: 0.3,
+        opacity: 0.25,
         blending: THREE.AdditiveBlending
     });
 
-    for (let i = 0; i < positions.length; i++) {
-        for (let j = i + 1; j < positions.length; j++) {
+    let connectionCount = 0;
+
+    for (let i = 0; i < positions.length && connectionCount < CONFIG.maxConnections; i++) {
+        for (let j = i + 1; j < positions.length && connectionCount < CONFIG.maxConnections; j++) {
             const distance = positions[i].distanceTo(positions[j]);
             if (distance < CONFIG.connectionDistance) {
                 const geometry = new THREE.BufferGeometry().setFromPoints([positions[i], positions[j]]);
                 const line = new THREE.Line(geometry, lineMaterial);
                 brainGroup.add(line);
+                connectionCount++;
             }
         }
     }
@@ -144,17 +170,18 @@ function createAIBrain() {
 }
 
 function createFloatingSpheres() {
-    const sizes = [40, 60, 50, 45, 55, 35, 48, 52];
+    const sizes = [40, 55, 45, 50];
 
     for (let i = 0; i < CONFIG.floatingSpheres; i++) {
-        const geometry = new THREE.SphereGeometry(sizes[i], 32, 32);
+        const geometry = new THREE.SphereGeometry(sizes[i], CONFIG.geometryDetail * 1.5, CONFIG.geometryDetail * 1.5);
         const material = new THREE.MeshPhongMaterial({
             color: i % 2 === 0 ? 0x005CFF : 0x7F00FF,
             transparent: true,
-            opacity: 0.15,
+            opacity: 0.12,
             emissive: i % 2 === 0 ? 0x005CFF : 0x7F00FF,
-            emissiveIntensity: 0.5,
-            shininess: 100
+            emissiveIntensity: 0.4,
+            shininess: 80,
+            flatShading: true  // Performance optimization
         });
 
         const sphere = new THREE.Mesh(geometry, material);
@@ -168,9 +195,10 @@ function createFloatingSpheres() {
         );
 
         sphere.userData = {
-            floatSpeed: 0.001 + Math.random() * 0.002,
+            floatSpeed: 0.0008 + Math.random() * 0.0015,
             floatOffset: Math.random() * Math.PI * 2,
-            rotationSpeed: 0.001 + Math.random() * 0.002
+            rotationSpeed: 0.0008 + Math.random() * 0.0015,
+            baseY: sphere.position.y
         };
 
         floatingSpheres.push(sphere);
@@ -181,24 +209,22 @@ function createFloatingSpheres() {
 function createHologramCube() {
     const group = new THREE.Group();
 
-    // Outer cube wireframe
     const cubeGeometry = new THREE.BoxGeometry(150, 150, 150);
     const edges = new THREE.EdgesGeometry(cubeGeometry);
     const lineMaterial = new THREE.LineBasicMaterial({
         color: 0x00FFFF,
         transparent: true,
-        opacity: 0.6
+        opacity: 0.5
     });
     const cube = new THREE.LineSegments(edges, lineMaterial);
     group.add(cube);
 
-    // Inner rotating core
     const coreGeometry = new THREE.IcosahedronGeometry(60, 0);
     const coreMaterial = new THREE.MeshBasicMaterial({
         color: 0x005CFF,
         wireframe: true,
         transparent: true,
-        opacity: 0.8
+        opacity: 0.7
     });
     const core = new THREE.Mesh(coreGeometry, coreMaterial);
     group.add(core);
@@ -211,8 +237,8 @@ function createHologramCube() {
 }
 
 function createWaves() {
-    for (let i = 0; i < 3; i++) {
-        const geometry = new THREE.RingGeometry(100, 105, 64);
+    for (let i = 0; i < 2; i++) {  // Reduced from 3 to 2
+        const geometry = new THREE.RingGeometry(100, 105, 24);
         const material = new THREE.MeshBasicMaterial({
             color: 0x005CFF,
             transparent: true,
@@ -225,7 +251,7 @@ function createWaves() {
         ring.position.set(0, -400, 0);
 
         ring.userData = {
-            startTime: Date.now() + i * 1000,
+            startTime: Date.now() + i * 1500,
             duration: 3000
         };
 
@@ -259,11 +285,12 @@ function createBackgroundParticles() {
     geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
 
     const material = new THREE.PointsMaterial({
-        size: 4,
+        size: 3,
         vertexColors: true,
         transparent: true,
-        opacity: 0.6,
-        blending: THREE.AdditiveBlending
+        opacity: 0.5,
+        blending: THREE.AdditiveBlending,
+        sizeAttenuation: true
     });
 
     particles = new THREE.Points(geometry, material);
@@ -271,88 +298,109 @@ function createBackgroundParticles() {
 }
 
 function onWindowResize() {
+    if (!camera || !renderer) return;
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
-    composer.setSize(window.innerWidth, window.innerHeight);
 }
 
 function onMouseMove(event) {
     mouseX = (event.clientX / window.innerWidth) - 0.5;
     mouseY = (event.clientY / window.innerHeight) - 0.5;
-
-    targetRotationY = mouseX * 0.5;
-    targetRotationX = mouseY * 0.5;
+    targetRotationY = mouseX * 0.3;
+    targetRotationX = mouseY * 0.3;
 }
 
 function animate() {
     requestAnimationFrame(animate);
+
+    // FPS monitoring
+    frameCount++;
+    const currentTime = Date.now();
+    if (currentTime >= lastTime + 1000) {
+        fps = frameCount;
+        frameCount = 0;
+        lastTime = currentTime;
+    }
+
     render();
 }
 
 function render() {
     const time = Date.now() * 0.001;
+    const shouldUpdate = frameCount % CONFIG.updateInterval === 0;
 
     // Rotate AI Brain
-    if (brain) {
-        brain.rotation.y += 0.002;
-        brain.rotation.x += (targetRotationX - brain.rotation.x) * 0.05;
-        brain.rotation.y += (targetRotationY - brain.rotation.y) * 0.05;
+    if (brain && shouldUpdate) {
+        brain.rotation.y += 0.0008;
+        brain.rotation.x += (targetRotationX - brain.rotation.x) * 0.03;
+        brain.rotation.y += (targetRotationY - brain.rotation.y) * 0.03;
 
-        // Pulse nodes
-        brain.userData.nodes.forEach(node => {
+        // Optimized node pulsing - update only visible nodes
+        const nodesToUpdate = Math.ceil(brain.userData.nodes.length / CONFIG.updateInterval);
+        const startIdx = (frameCount % CONFIG.updateInterval) * nodesToUpdate;
+        const endIdx = Math.min(startIdx + nodesToUpdate, brain.userData.nodes.length);
+
+        for (let i = startIdx; i < endIdx; i++) {
+            const node = brain.userData.nodes[i];
             const pulse = Math.sin(time * node.userData.pulseSpeed + node.userData.pulsePhase);
-            node.scale.setScalar(1 + pulse * 0.3);
-            node.material.opacity = 0.7 + pulse * 0.3;
-        });
+            const scale = 1 + pulse * 0.25;
+            node.scale.set(scale, scale, scale);
+            node.material.opacity = 0.6 + pulse * 0.2;
+            node.matrixAutoUpdate = true;
+            node.updateMatrix();
+            node.matrixAutoUpdate = false;
+        }
     }
 
     // Animate floating spheres
-    floatingSpheres.forEach(sphere => {
-        sphere.position.y += Math.sin(time * sphere.userData.floatSpeed + sphere.userData.floatOffset) * 0.5;
-        sphere.rotation.x += sphere.userData.rotationSpeed;
-        sphere.rotation.y += sphere.userData.rotationSpeed;
-
-        // Mouse parallax
-        sphere.position.x += (mouseX * 50 - sphere.position.x * 0.001) * 0.05;
-        sphere.position.z += (mouseY * 50 - sphere.position.z * 0.001) * 0.05;
-    });
+    if (shouldUpdate) {
+        floatingSpheres.forEach(sphere => {
+            const floatAmount = Math.sin(time * sphere.userData.floatSpeed + sphere.userData.floatOffset);
+            sphere.position.y = sphere.userData.baseY + floatAmount * 15;
+            sphere.rotation.x += sphere.userData.rotationSpeed;
+            sphere.rotation.y += sphere.userData.rotationSpeed;
+        });
+    }
 
     // Rotate hologram cube
-    if (hologramCube) {
-        hologramCube.userData.cube.rotation.x += 0.005;
-        hologramCube.userData.cube.rotation.y += 0.005;
-        hologramCube.userData.core.rotation.x -= 0.01;
-        hologramCube.userData.core.rotation.y -= 0.01;
+    if (hologramCube && shouldUpdate) {
+        hologramCube.userData.cube.rotation.x += 0.004;
+        hologramCube.userData.cube.rotation.y += 0.004;
+        hologramCube.userData.core.rotation.x -= 0.008;
+        hologramCube.userData.core.rotation.y -= 0.008;
     }
 
     // Animate waves
-    waves.forEach(wave => {
-        const elapsed = Date.now() - wave.userData.startTime;
-        const progress = (elapsed % wave.userData.duration) / wave.userData.duration;
+    if (shouldUpdate) {
+        waves.forEach(wave => {
+            const elapsed = Date.now() - wave.userData.startTime;
+            const progress = (elapsed % wave.userData.duration) / wave.userData.duration;
 
-        const scale = 1 + progress * 3;
-        wave.scale.set(scale, scale, 1);
-        wave.material.opacity = (1 - progress) * 0.5;
+            const scale = 1 + progress * 2.5;
+            wave.scale.set(scale, scale, 1);
+            wave.material.opacity = (1 - progress) * 0.4;
 
-        if (progress > 0.95) {
-            wave.userData.startTime = Date.now();
-        }
-    });
+            if (progress > 0.95) {
+                wave.userData.startTime = Date.now();
+            }
+        });
+    }
 
     // Rotate background particles
     if (particles) {
-        particles.rotation.y += 0.0002;
+        particles.rotation.y += 0.0001;
     }
 
-    // Camera parallax
-    camera.position.x += (mouseX * 100 - camera.position.x) * 0.05;
-    camera.position.y += (-mouseY * 100 - camera.position.y) * 0.05;
+    // Smooth camera parallax
+    camera.position.x += (mouseX * 80 - camera.position.x) * 0.03;
+    camera.position.y += (-mouseY * 80 - camera.position.y) * 0.03;
     camera.lookAt(scene.position);
 
-    // Render with bloom
-    composer.render();
+    // Render
+    renderer.render(scene, camera);
 }
 
 // Initialize
 init();
+

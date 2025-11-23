@@ -98,6 +98,7 @@ body {
     text-decoration: none;
     transition: all 0.3s;
     cursor: pointer;
+    border: none;
 }
 
 .btn-primary {
@@ -239,6 +240,10 @@ body {
     color: var(--text-muted);
 }
 
+.text-center {
+    text-align: center;
+}
+
 /* Service Cards */
 .services-grid {
     display: grid;
@@ -303,6 +308,13 @@ body {
     gap: 15px;
     margin-bottom: 15px;
     color: var(--text-muted);
+}
+
+.why-list li::before {
+    content: '✓';
+    color: var(--primary);
+    font-weight: bold;
+    font-size: 1.2rem;
 }
 
 .why-visual {
@@ -751,30 +763,6 @@ body {
     font-weight: 500;
 }
 
-/* Mobile Dropdown */
-@media (max-width: 968px) {
-    .dropdown-content {
-        position: static;
-        transform: none;
-        width: 100%;
-        min-width: auto;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-        display: none;
-        grid-template-columns: 1fr;
-        padding: 0 0 0 20px;
-    }
-
-    .dropdown.active .dropdown-content {
-        display: grid;
-    }
-
-    .dropdown-item {
-        padding: 10px 0;
-    }
-}
-
 /* New Sections Styles */
 .features-section,
 .process-section,
@@ -885,29 +873,52 @@ body {
     background: var(--dark-light);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 25px;
+    padding: 20px 25px;
+    transition: all 0.3s ease;
+}
+
+.faq-item.active {
+    border-color: var(--primary);
+    background: rgba(0, 92, 255, 0.05);
 }
 
 .faq-item h3 {
     font-size: 1.1rem;
-    margin-bottom: 10px;
+    margin-bottom: 0;
     color: var(--text);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+}
+
+.faq-item h3::after {
+    content: '+';
+    font-size: 1.5rem;
+    font-weight: 300;
+    transition: transform 0.3s ease;
+    color: var(--primary);
+}
+
+.faq-item.active h3::after {
+    transform: rotate(45deg);
 }
 
 .faq-item p {
     color: var(--text-muted);
     font-size: 0.95rem;
+    margin-top: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    opacity: 0;
 }
 
-@media (max-width: 968px) {
-    .process-steps {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
-    .use-cases-grid {
-        grid-template-columns: 1fr;
-    }
+.faq-item.active p {
+    margin-top: 15px;
+    max-height: 300px;
+    opacity: 1;
 }
 
 /* Benefits Section */
@@ -954,4 +965,457 @@ body {
     color: var(--text-muted);
     font-size: 0.95rem;
     line-height: 1.6;
+}
+
+/* ========================================
+   MOBILE RESPONSIVE STYLES
+   ======================================== */
+
+/* Tablet and below (968px) */
+@media (max-width: 968px) {
+
+    /* Typography adjustments */
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+    }
+
+    .page-hero h1 {
+        font-size: 2.5rem;
+    }
+
+    /* Navigation */
+    .mobile-toggle {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+        z-index: 1001;
+    }
+
+    .mobile-toggle span {
+        width: 25px;
+        height: 2px;
+        background: var(--text);
+        transition: all 0.3s;
+        border-radius: 2px;
+    }
+
+    .mobile-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .mobile-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .mobile-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: rgba(10, 10, 10, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 40px 20px;
+        gap: 20px;
+        transition: left 0.3s ease;
+        overflow-y: auto;
+        border-top: 1px solid var(--border);
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .navbar .btn-primary {
+        display: none;
+    }
+
+    /* Grid adjustments */
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .why-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .hero-stats {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .process-steps {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .use-cases-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Dropdown adjustments */
+    .dropdown-content {
+        position: static;
+        transform: none;
+        width: 100%;
+        min-width: auto;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        display: none;
+        grid-template-columns: 1fr;
+        padding: 0 0 0 20px;
+    }
+
+    .dropdown.active .dropdown-content {
+        display: grid;
+    }
+
+    .dropdown-item {
+        padding: 10px 0;
+    }
+}
+
+/* Mobile (768px and below) */
+@media (max-width: 768px) {
+
+    /* Container padding */
+    .container {
+        padding: 0 15px;
+    }
+
+    /* Typography */
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .page-hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero-description {
+        font-size: 1.1rem;
+    }
+
+    .about-text h2,
+    .why-text h2 {
+        font-size: 2rem;
+    }
+
+    /* Sections padding */
+    .services-section,
+    .why-section,
+    .about-content,
+    .features-section,
+    .process-section,
+    .use-cases-section,
+    .faq-section,
+    .benefits-section {
+        padding: 60px 0;
+    }
+
+    .page-hero {
+        padding: 140px 0 60px;
+    }
+
+    .hero {
+        min-height: auto;
+        padding-top: 80px;
+    }
+
+    .hero-content {
+        padding: 60px 0;
+    }
+
+    /* Cards */
+    .service-card,
+    .feature-box,
+    .use-case-card,
+    .benefit-item {
+        padding: 25px;
+    }
+
+    /* Stats */
+    .stat-item h3 {
+        font-size: 2rem;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 60px 0 20px;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+
+    /* Buttons */
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+    }
+
+    /* Process steps */
+    .step-number {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+    }
+}
+
+/* Small Mobile (480px and below) */
+@media (max-width: 480px) {
+
+    /* Typography */
+    .hero-title {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+    }
+
+    .page-hero h1 {
+        font-size: 1.75rem;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+    }
+
+    .section-subtitle {
+        font-size: 1rem;
+    }
+
+    /* Logo */
+    .logo {
+        font-size: 1.25rem;
+    }
+
+    /* Sections */
+    .services-section,
+    .why-section,
+    .about-content,
+    .features-section,
+    .process-section,
+    .use-cases-section,
+    .faq-section,
+    .benefits-section {
+        padding: 40px 0;
+    }
+
+    .page-hero {
+        padding: 120px 0 40px;
+    }
+
+    .hero-content {
+        padding: 40px 0;
+    }
+
+    .section-header {
+        margin-bottom: 40px;
+    }
+
+    /* Cards */
+    .service-card,
+    .feature-box,
+    .use-case-card,
+    .benefit-item,
+    .stat-card,
+    .visual-card,
+    .faq-item {
+        padding: 20px;
+    }
+
+    /* Stats */
+    .stat-item h3 {
+        font-size: 1.75rem;
+    }
+
+    .stat-card h3 {
+        height: 150px;
+        font-size: 3rem;
+    }
+
+    /* Buttons */
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+
+    .btn-large {
+        padding: 14px 30px;
+        font-size: 1rem;
+    }
+
+    /* Process */
+    .step-number {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    /* Benefits */
+    .benefit-icon {
+        font-size: 2rem;
+    }
+
+    /* Grid gaps */
+    .services-grid,
+    .features-grid,
+    .use-cases-grid,
+    .benefits-grid {
+        gap: 15px;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 40px 0 20px;
+    }
+
+    .footer-content {
+        gap: 25px;
+        margin-bottom: 30px;
+    }
+
+    /* Navbar */
+    .navbar {
+        padding: 15px 0;
+    }
+
+    .nav-menu {
+        top: 70px;
+        height: calc(100vh - 70px);
+        padding: 30px 15px;
+    }
+
+    /* Dropdown items */
+    .dropdown-item svg {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+    }
+
+    .dropdown-item span {
+        font-size: 0.9rem;
+    }
+}
+
+/* Extra Small Mobile (360px and below) */
+@media (max-width: 360px) {
+    .hero-title {
+        font-size: 1.75rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .page-hero h1 {
+        font-size: 1.5rem;
+    }
+
+    .container {
+        padding: 0 12px;
+    }
+
+    .service-card h3,
+    .feature-box h3,
+    .benefit-item h3 {
+        font-size: 1.1rem;
+    }
+
+    .stat-card h3 {
+        height: 120px;
+        font-size: 2.5rem;
+    }
+}
+
+/* Landscape mobile optimization */
+@media (max-height: 600px) and (orientation: landscape) {
+    .hero {
+        min-height: auto;
+    }
+
+    .hero-content {
+        padding: 40px 0;
+    }
+
+    .page-hero {
+        padding: 100px 0 40px;
+    }
+
+    .nav-menu {
+        padding: 20px;
+    }
+}
+
+/* Print styles */
+@media print {
+
+    .header,
+    .footer,
+    .mobile-toggle,
+    .btn {
+        display: none;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    .hero,
+    .page-hero {
+        padding: 20px 0;
+    }
 }
