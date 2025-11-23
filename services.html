@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | PR AI Hub</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <span class="logo-text">PR AI</span>
+                    <span class="logo-highlight">Hub</span>
+                </a>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li class="dropdown">
+                        <a href="services.html" class="nav-link active">Services ▾</a>
+                        <div class="dropdown-content">
+                            <a href="service-chatbots.html" class="dropdown-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path
+                                        d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                                    </path>
+                                </svg>
+                                <span>AI Chatbots</span>
+                            </a>
+                            <a href="service-automation.html" class="dropdown-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="16 18 22 12 16 6"></polyline>
+                                    <polyline points="8 6 2 12 8 18"></polyline>
+                                </svg>
+                                <span>Automation</span>
+                            </a>
+                            <a href="service-websites.html" class="dropdown-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="3" y1="9" x2="21" y2="9"></line>
+                                    <line x1="9" y1="21" x2="9" y2="9"></line>
+                                </svg>
+                                <span>AI Websites</span>
+                            </a>
+                            <a href="service-3d.html" class="dropdown-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path
+                                        d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                                    </path>
+                                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                                </svg>
+                                <span>3D Experiences</span>
+                            </a>
+                            <a href="service-gpt.html" class="dropdown-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2a10 10 0 1 0 10 10H12V2z"></path>
+                                    <path d="M12 12L2.1 10.5"></path>
+                                    <path d="M12 12V2a10 10 0 0 1 10 10"></path>
+                                </svg>
+                                <span>Custom GPTs</span>
+                            </a>
+                            <a href="service-dashboards.html" class="dropdown-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                                </svg>
+                                <span>Dashboards</span>
+                            </a>
+                            <a href="service-content.html" class="dropdown-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                </svg>
+                                <span>Content Gen</span>
+                            </a>
+                            <a href="service-marketing.html" class="dropdown-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M23 6l-9.5 9.5-5-5L1 18"></path>
+                                    <path d="M17 6h6v6"></path>
+                                </svg>
+                                <span>Marketing</span>
+                            </a>
+                            <a href="service-security.html" class="dropdown-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                                <span>Security</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li><a href="pricing.html" class="nav-link">Pricing</a></li>
+                    <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <a href="contact.html" class="btn btn-primary">Get Started</a>
+                <button class="mobile-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1 data-aos="fade-up">Our <span class="gradient-text">Services</span></h1>
+            <p data-aos="fade-up" data-aos-delay="100">Comprehensive AI solutions tailored to your business needs</p>
+        </div>
+    </section>
+
+    <section class="services-section">
+        <div class="container">
+            <div class="services-grid">
+                <!-- Service 1 -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100"
+                    onclick="window.location.href='service-chatbots.html'" style="cursor: pointer;">
+                    <div class="service-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="12" fill="url(#grad-s1)" />
+                            <path
+                                d="M24 14C18.48 14 14 18.48 14 24C14 29.52 18.48 34 24 34C29.52 34 34 29.52 34 24C34 18.48 29.52 14 24 14ZM24 28C21.79 28 20 26.21 20 24C20 21.79 21.79 20 24 20C26.21 20 28 21.79 28 24C28 26.21 26.21 28 24 28Z"
+                                fill="white" />
+                            <defs>
+                                <linearGradient id="grad-s1" x1="0" y1="0" x2="48" y2="48">
+                                    <stop stop-color="#005CFF" />
+                                    <stop offset="1" stop-color="#7F00FF" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h3>AI Chatbots</h3>
+                    <p>Intelligent chatbots for WhatsApp, Web, Instagram, and Telegram.</p>
+                    <a href="service-chatbots.html" class="btn-text">Learn More &rarr;</a>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200"
+                    onclick="window.location.href='service-automation.html'" style="cursor: pointer;">
+                    <div class="service-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="12" fill="url(#grad-s2)" />
+                            <path d="M24 14L14 19V25C14 30.55 17.84 35.74 24 37C30.16 35.74 34 30.55 34 25V19L24 14Z"
+                                fill="white" />
+                            <defs>
+                                <linearGradient id="grad-s2" x1="0" y1="0" x2="48" y2="48">
+                                    <stop stop-color="#005CFF" />
+                                    <stop offset="1" stop-color="#00FFFF" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h3>Automation & Workflows</h3>
+                    <p>Streamline operations with n8n, Zapier, and custom API integrations.</p>
+                    <a href="service-automation.html" class="btn-text">Learn More &rarr;</a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="300"
+                    onclick="window.location.href='service-websites.html'" style="cursor: pointer;">
+                    <div class="service-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="12" fill="url(#grad-s3)" />
+                            <path
+                                d="M32 16H16C14.9 16 14 16.9 14 18V30C14 31.1 14.9 32 16 32H32C33.1 32 34 31.1 34 30V18C34 16.9 33.1 16 32 16ZM32 30H16V18H32V30Z"
+                                fill="white" />
+                            <defs>
+                                <linearGradient id="grad-s3" x1="0" y1="0" x2="48" y2="48">
+                                    <stop stop-color="#7F00FF" />
+                                    <stop offset="1" stop-color="#005CFF" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h3>AI-Powered Websites</h3>
+                    <p>SEO-ready, animated, and responsive websites built with modern tech.</p>
+                    <a href="service-websites.html" class="btn-text">Learn More &rarr;</a>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100"
+                    onclick="window.location.href='service-3d.html'" style="cursor: pointer;">
+                    <div class="service-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="12" fill="url(#grad-s4)" />
+                            <path d="M24 14L14 24L24 34L34 24L24 14ZM24 29L19 24L24 19L29 24L24 29Z" fill="white" />
+                            <defs>
+                                <linearGradient id="grad-s4" x1="0" y1="0" x2="48" y2="48">
+                                    <stop stop-color="#00FFFF" />
+                                    <stop offset="1" stop-color="#7F00FF" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h3>3D Experiences</h3>
+                    <p>Immersive 3D landing pages and interactive web experiences.</p>
+                    <a href="service-3d.html" class="btn-text">Learn More &rarr;</a>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200"
+                    onclick="window.location.href='service-gpt.html'" style="cursor: pointer;">
+                    <div class="service-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="12" fill="url(#grad-s5)" />
+                            <path
+                                d="M24 14C18.48 14 14 18.48 14 24C14 29.52 18.48 34 24 34C29.52 34 34 29.52 34 24C34 18.48 29.52 14 24 14ZM24 28C21.79 28 20 26.21 20 24C20 21.79 21.79 20 24 20C26.21 20 28 21.79 28 24C28 26.21 26.21 28 24 28Z"
+                                fill="white" />
+                            <defs>
+                                <linearGradient id="grad-s5" x1="0" y1="0" x2="48" y2="48">
+                                    <stop stop-color="#005CFF" />
+                                    <stop offset="1" stop-color="#7F00FF" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h3>Custom GPTs</h3>
+                    <p>Internal knowledge bots and prompt engineering for your specific needs.</p>
+                    <a href="service-gpt.html" class="btn-text">Learn More &rarr;</a>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="300"
+                    onclick="window.location.href='service-dashboards.html'" style="cursor: pointer;">
+                    <div class="service-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="12" fill="url(#grad-s6)" />
+                            <path
+                                d="M32 16H16C14.9 16 14 16.9 14 18V30C14 31.1 14.9 32 16 32H32C33.1 32 34 31.1 34 30V18C34 16.9 33.1 16 32 16ZM32 30H16V18H32V30Z"
+                                fill="white" />
+                            <defs>
+                                <linearGradient id="grad-s6" x1="0" y1="0" x2="48" y2="48">
+                                    <stop stop-color="#7F00FF" />
+                                    <stop offset="1" stop-color="#00FFFF" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h3>Business Dashboards</h3>
+                    <p>KPIs, forecasting, and real-time alerts for data-driven decisions.</p>
+                    <a href="service-dashboards.html" class="btn-text">Learn More &rarr;</a>
+                </div>
+
+                <!-- Service 7 -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100"
+                    onclick="window.location.href='service-content.html'" style="cursor: pointer;">
+                    <div class="service-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="12" fill="url(#grad-s7)" />
+                            <path d="M24 14L14 24L24 34L34 24L24 14ZM24 29L19 24L24 19L29 24L24 29Z" fill="white" />
+                            <defs>
+                                <linearGradient id="grad-s7" x1="0" y1="0" x2="48" y2="48">
+                                    <stop stop-color="#005CFF" />
+                                    <stop offset="1" stop-color="#7F00FF" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h3>AI Content Generation</h3>
+                    <p>Automated blog posts, social media content, and marketing copy.</p>
+                    <a href="service-content.html" class="btn-text">Learn More &rarr;</a>
+                </div>
+
+                <!-- Service 8 -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200"
+                    onclick="window.location.href='service-marketing.html'" style="cursor: pointer;">
+                    <div class="service-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="12" fill="url(#grad-s8)" />
+                            <path
+                                d="M24 14C18.48 14 14 18.48 14 24C14 29.52 18.48 34 24 34C29.52 34 34 29.52 34 24C34 18.48 29.52 14 24 14ZM24 28C21.79 28 20 26.21 20 24C20 21.79 21.79 20 24 20C26.21 20 28 21.79 28 24C28 26.21 26.21 28 24 28Z"
+                                fill="white" />
+                            <defs>
+                                <linearGradient id="grad-s8" x1="0" y1="0" x2="48" y2="48">
+                                    <stop stop-color="#7F00FF" />
+                                    <stop offset="1" stop-color="#00FFFF" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h3>AI Marketing Tools</h3>
+                    <p>Predictive analytics, customer segmentation, and personalized campaigns.</p>
+                    <a href="service-marketing.html" class="btn-text">Learn More &rarr;</a>
+                </div>
+
+                <!-- Service 9 -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="300"
+                    onclick="window.location.href='service-security.html'" style="cursor: pointer;">
+                    <div class="service-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="12" fill="url(#grad-s9)" />
+                            <path
+                                d="M32 16H16C14.9 16 14 16.9 14 18V30C14 31.1 14.9 32 16 32H32C33.1 32 34 31.1 34 30V18C34 16.9 33.1 16 32 16ZM32 30H16V18H32V30Z"
+                                fill="white" />
+                            <defs>
+                                <linearGradient id="grad-s9" x1="0" y1="0" x2="48" y2="48">
+                                    <stop stop-color="#00FFFF" />
+                                    <stop offset="1" stop-color="#005CFF" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h3>AI Security Solutions</h3>
+                    <p>Fraud detection, threat monitoring, and automated security protocols.</p>
+                    <a href="service-security.html" class="btn-text">Learn More &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content" data-aos="zoom-in">
+                <h2>Need a Custom Solution?</h2>
+                <p>We build tailored AI solutions for unique business challenges.</p>
+                <a href="contact.html" class="btn btn-primary btn-large">Let's Talk</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3 class="footer-logo">PR AI <span>Hub</span></h3>
+                    <p>Everything AI. For Everyone.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html">AI Chatbots</a></li>
+                        <li><a href="services.html">Automation</a></li>
+                        <li><a href="services.html">AI Websites</a></li>
+                        <li><a href="services.html">Custom GPTs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:hello@praihub.com">hello@praihub.com</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 PR AI Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
