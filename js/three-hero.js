@@ -151,6 +151,71 @@ function createNeuralNetwork() {
 
     neuralNetwork = new THREE.Points(geometry, material);
     scene.add(neuralNetwork);
+
+    // Create connection lines between nearby nodes
+    createNeuralConnections(positions);
+}
+
+// Create connection lines between neural nodes
+function createNeuralConnections(nodePositions) {
+    const lineGeometry = new THREE.BufferGeometry();
+    const linePositions = [];
+    const lineColors = [];
+
+    // Create connections between nearby nodes
+    for (let i = 0; i < nodePositions.length; i += 3) {
+        const x1 = nodePositions[i];
+        const y1 = nodePositions[i + 1];
+        const z1 = nodePositions[i + 2];
+
+        let connections = 0;
+        const maxConnectionsPerNode = QUALITY.HIGH ? 5 : QUALITY.MEDIUM ? 4 : 3;
+
+        for (let j = i + 3; j < nodePositions.length && connections < maxConnectionsPerNode; j += 3) {
+            const x2 = nodePositions[j];
+            const y2 = nodePositions[j + 1];
+            const z2 = nodePositions[j + 2];
+
+            // Calculate distance
+            const dx = x2 - x1;
+            const dy = y2 - y1;
+            const dz = z2 - z1;
+            const distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+            // Only connect nearby nodes
+            if (distance < CONFIG.connectionDistance) {
+                // Add line
+                linePositions.push(x1, y1, z1);
+                linePositions.push(x2, y2, z2);
+
+                // Color based on distance (closer = brighter)
+                const intensity = 1 - (distance / CONFIG.connectionDistance);
+                const color = new THREE.Color();
+                color.setHSL(0.55 + Math.random() * 0.15, 1, 0.3 + intensity * 0.4);
+
+                lineColors.push(color.r, color.g, color.b);
+                lineColors.push(color.r, color.g, color.b);
+
+                connections++;
+            }
+        }
+    }
+
+    lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+    lineGeometry.setAttribute('color', new THREE.Float32BufferAttribute(lineColors, 3));
+
+    const lineMaterial = new THREE.LineBasicMaterial({
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.4,
+        blending: THREE.AdditiveBlending
+    });
+
+    const connections = new THREE.LineSegments(lineGeometry, lineMaterial);
+    neuralNetwork.add(connections);
+
+    // Store for animation
+    neuralNetwork.userData.connections = connections;
 }
 
 // Create AI Core - central glowing sphere
@@ -330,6 +395,13 @@ function animate() {
             }
         }
         neuralNetwork.geometry.attributes.position.needsUpdate = true;
+
+        // Animate connection lines with pulsing effect
+        if (neuralNetwork.userData.connections) {
+            const connections = neuralNetwork.userData.connections;
+            const pulse = 0.3 + Math.sin(Date.now() * 0.002) * 0.2;
+            connections.material.opacity = pulse;
+        }
     }
 
     // Animate AI Core
