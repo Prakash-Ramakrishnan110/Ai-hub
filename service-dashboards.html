@@ -4,19 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Dashboards | PR AI Hub</title>
-
-    <!-- Fonts -->
+    <title>AI Dashboards | PR AI Hub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-
-    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
-
-    <!-- AOS Animation -->
+    <link rel="stylesheet" href="css/service-pages.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
@@ -24,86 +19,66 @@
     <header class="header">
         <div class="container">
             <nav class="navbar">
-                <a href="index.html" class="logo">
-                    <span class="logo-text">PR AI</span>
-                    <span class="logo-highlight">Hub</span>
-                </a>
+                <a href="index.html" class="logo"><span class="logo-text">PR AI</span><span
+                        class="logo-highlight">Hub</span></a>
                 <ul class="nav-menu">
                     <li><a href="index.html" class="nav-link">Home</a></li>
                     <li><a href="about.html" class="nav-link">About</a></li>
                     <li class="dropdown">
                         <a href="services.html" class="nav-link active">Services ▾</a>
                         <div class="dropdown-content">
-                            <a href="service-chatbots.html" class="dropdown-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <a href="service-chatbots.html" class="dropdown-item"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
                                     <path
                                         d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
                                     </path>
-                                </svg>
-                                <span>AI Chatbots</span>
-                            </a>
-                            <a href="service-automation.html" class="dropdown-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                </svg><span>AI Chatbots</span></a>
+                            <a href="service-automation.html" class="dropdown-item"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
                                     <polyline points="16 18 22 12 16 6"></polyline>
                                     <polyline points="8 6 2 12 8 18"></polyline>
-                                </svg>
-                                <span>Automation</span>
-                            </a>
-                            <a href="service-websites.html" class="dropdown-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                </svg><span>Automation</span></a>
+                            <a href="service-websites.html" class="dropdown-item"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
                                     <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                                     <line x1="3" y1="9" x2="21" y2="9"></line>
                                     <line x1="9" y1="21" x2="9" y2="9"></line>
-                                </svg>
-                                <span>AI Websites</span>
-                            </a>
-                            <a href="service-3d.html" class="dropdown-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                </svg><span>AI Websites</span></a>
+                            <a href="service-3d.html" class="dropdown-item"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
                                     <path
                                         d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
                                     </path>
                                     <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                                     <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                                </svg>
-                                <span>3D Experiences</span>
-                            </a>
-                            <a href="service-gpt.html" class="dropdown-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                </svg><span>3D Experiences</span></a>
+                            <a href="service-gpt.html" class="dropdown-item"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
                                     <path d="M12 2a10 10 0 1 0 10 10H12V2z"></path>
                                     <path d="M12 12L2.1 10.5"></path>
                                     <path d="M12 12V2a10 10 0 0 1 10 10"></path>
-                                </svg>
-                                <span>Custom GPTs</span>
-                            </a>
-                            <a href="service-dashboards.html" class="dropdown-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                </svg><span>Custom GPTs</span></a>
+                            <a href="service-dashboards.html" class="dropdown-item"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
                                     <line x1="18" y1="20" x2="18" y2="10"></line>
                                     <line x1="12" y1="20" x2="12" y2="4"></line>
                                     <line x1="6" y1="20" x2="6" y2="14"></line>
-                                </svg>
-                                <span>Dashboards</span>
-                            </a>
-                            <a href="service-content.html" class="dropdown-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                </svg><span>Dashboards</span></a>
+                            <a href="service-content.html" class="dropdown-item"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
                                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                </svg>
-                                <span>Content Gen</span>
-                            </a>
-                            <a href="service-marketing.html" class="dropdown-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                </svg><span>Content Gen</span></a>
+                            <a href="service-marketing.html" class="dropdown-item"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
                                     <path d="M23 6l-9.5 9.5-5-5L1 18"></path>
                                     <path d="M17 6h6v6"></path>
-                                </svg>
-                                <span>Marketing</span>
-                            </a>
-                            <a href="service-security.html" class="dropdown-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                </svg><span>Marketing</span></a>
+                            <a href="service-security.html" class="dropdown-item"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
                                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                                     <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                                </svg>
-                                <span>Security</span>
-                            </a>
+                                </svg><span>Security</span></a>
                         </div>
                     </li>
                     <li><a href="pricing.html" class="nav-link">Pricing</a></li>
@@ -111,19 +86,15 @@
                     <li><a href="contact.html" class="nav-link">Contact</a></li>
                 </ul>
                 <a href="contact.html" class="btn btn-primary">Get Started</a>
-                <button class="mobile-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
+                <button class="mobile-toggle"><span></span><span></span><span></span></button>
             </nav>
         </div>
     </header>
 
     <section class="page-hero">
         <div class="container">
-            <h1 data-aos="fade-up">Business <span class="gradient-text">Dashboards</span></h1>
-            <p data-aos="fade-up" data-aos-delay="100">Visualize your data and make informed decisions</p>
+            <h1 data-aos="fade-up">AI-Powered <span class="gradient-text">Dashboards</span></h1>
+            <p data-aos="fade-up" data-aos-delay="100">Intelligent data visualization and business intelligence</p>
         </div>
     </section>
 
@@ -131,26 +102,44 @@
         <div class="container">
             <div class="about-grid">
                 <div class="about-text" data-aos="fade-right">
-                    <h2>Data-Driven Insights</h2>
-                    <p>Transform raw data into actionable insights with our custom business dashboards. We connect your
-                        data sources to create real-time visualizations that help you monitor KPIs, track performance,
-                        and forecast trends.</p>
+                    <h2>Data-Driven Decision Making</h2>
+                    <p>We build AI-powered dashboards that transform raw data into actionable insights. Our dashboards
+                        use machine learning to identify trends, predict outcomes, and highlight what matters most to
+                        your business.</p>
+                    <p>Real-time data visualization, automated reporting, and intelligent alerts ensure you always have
+                        the information you need to make informed decisions quickly. Say goodbye to static spreadsheets
+                        and hello to dynamic intelligence.</p>
                     <ul class="why-list">
                         <li>Real-time Data Visualization</li>
-                        <li>Custom KPI Tracking</li>
-                        <li>Automated Reporting</li>
                         <li>Predictive Analytics</li>
+                        <li>Automated Reporting</li>
+                        <li>Custom KPI Tracking</li>
+                        <li>Multi-Source Integration</li>
+                        <li>Interactive Charts & Graphs</li>
                     </ul>
-                    <a href="contact.html" class="btn btn-primary">Visualize My Data</a>
+                    <a href="contact.html" class="btn btn-primary">Build My Dashboard</a>
                 </div>
                 <div class="about-stats" data-aos="fade-left">
                     <div class="service-card">
-                        <h3>360°</h3>
-                        <p>Business View</p>
+                        <h3>Real-time</h3>
+                        <p>Live Data Updates</p>
+                        <span
+                            style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-top: 8px; line-height: 1.4;">See
+                            your metrics update in real-time with automatic data synchronization.</span>
                     </div>
                     <div class="service-card">
-                        <h3>Real-time</h3>
-                        <p>Updates</p>
+                        <h3>AI Insights</h3>
+                        <p>Smart Analytics</p>
+                        <span
+                            style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-top: 8px; line-height: 1.4;">Machine
+                            learning algorithms identify trends and anomalies automatically.</span>
+                    </div>
+                    <div class="service-card">
+                        <h3>Custom</h3>
+                        <p>Fully Tailored</p>
+                        <span
+                            style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-top: 8px; line-height: 1.4;">Every
+                            dashboard is customized to your specific KPIs and business needs.</span>
                     </div>
                 </div>
             </div>
@@ -163,19 +152,123 @@
             </h2>
             <div class="benefits-grid">
                 <div class="benefit-item" data-aos="fade-up" data-aos-delay="100">
-                    <div class="benefit-icon">🚀</div>
-                    <h3>Fast Implementation</h3>
-                    <p>Get up and running in days, not months.</p>
+                    <div class="benefit-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="24" r="24" fill="url(#grad-rocket)" />
+                            <path d="M24 10L14 28H34L24 10Z" fill="white" />
+                            <rect x="22" y="28" width="4" height="8" fill="white" />
+                            <defs>
+                                <linearGradient id="grad-rocket" x1="0" y1="0" x2="48" y2="48">
+                                    <stop stop-color="#005CFF" />
+                                    <stop offset="1" stop-color="#7F00FF" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h3>Instant Insights</h3>
+                    <p>Stop wasting time analyzing spreadsheets. Get instant, visual insights into your business
+                        performance at a glance.</p>
                 </div>
                 <div class="benefit-item" data-aos="fade-up" data-aos-delay="200">
-                    <div class="benefit-icon">💎</div>
-                    <h3>Premium Quality</h3>
-                    <p>Top-tier solutions that reflect your brand's excellence.</p>
+                    <div class="benefit-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="24" r="24" fill="url(#grad-quality)" />
+                            <path
+                                d="M24 8L18 14L12 12L10 18L4 20L6 26L4 32L10 34L12 40L18 38L24 44L30 38L36 40L38 34L44 32L42 26L44 20L38 18L36 12L30 14L24 8Z"
+                                fill="white" />
+                            <circle cx="24" cy="24" r="6" fill="url(#grad-quality)" />
+                            <defs>
+                                <linearGradient id="grad-quality" x1="0" y1="0" x2="48" y2="48">
+                                    <stop stop-color="#7F00FF" />
+                                    <stop offset="1" stop-color="#00FFFF" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h3>Predictive Power</h3>
+                    <p>Don't just look back—look forward. Our AI models predict future trends based on historical data.
+                    </p>
                 </div>
                 <div class="benefit-item" data-aos="fade-up" data-aos-delay="300">
-                    <div class="benefit-icon">🤝</div>
-                    <h3>Dedicated Support</h3>
-                    <p>We are with you every step of the way.</p>
+                    <div class="benefit-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="24" r="24" fill="url(#grad-support)" />
+                            <circle cx="16" cy="18" r="6" fill="white" />
+                            <circle cx="32" cy="18" r="6" fill="white" />
+                            <path
+                                d="M8 36C8 30 12 26 16 26C18 26 20 27 21 28C22 27 24 26 26 26C28 26 30 27 31 28C32 27 34 26 36 26C40 26 44 30 44 36"
+                                stroke="white" stroke-width="3" fill="none" />
+                            <defs>
+                                <linearGradient id="grad-support" x1="0" y1="0" x2="48" y2="48">
+                                    <stop stop-color="#005CFF" />
+                                    <stop offset="1" stop-color="#00FFFF" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h3>Unified View</h3>
+                    <p>Connect all your data sources into one central hub. Marketing, sales, finance, and operations in
+                        one place.</p>
+                </div>
+                <div class="benefit-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="benefit-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="24" r="24" fill="url(#grad-scalable)" />
+                            <rect x="10" y="28" width="6" height="12" fill="white" />
+                            <rect x="21" y="20" width="6" height="20" fill="white" />
+                            <rect x="32" y="12" width="6" height="28" fill="white" />
+                            <defs>
+                                <linearGradient id="grad-scalable" x1="0" y1="0" x2="48" y2="48">
+                                    <stop stop-color="#00FFFF" />
+                                    <stop offset="1" stop-color="#005CFF" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h3>Scalable Architecture</h3>
+                    <p>Built to handle millions of data points. Our dashboards grow with your business without slowing
+                        down.</p>
+                </div>
+                <div class="benefit-item" data-aos="fade-up" data-aos-delay="500">
+                    <div class="benefit-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="24" r="24" fill="url(#grad-secure)" />
+                            <rect x="14" y="20" width="20" height="16" rx="2" fill="white" />
+                            <path d="M18 20V16C18 12.6863 20.6863 10 24 10C27.3137 10 30 12.6863 30 16V20"
+                                stroke="white" stroke-width="3" fill="none" />
+                            <circle cx="24" cy="28" r="2" fill="url(#grad-secure)" />
+                            <defs>
+                                <linearGradient id="grad-secure" x1="0" y1="0" x2="48" y2="48">
+                                    <stop stop-color="#7F00FF" />
+                                    <stop offset="1" stop-color="#005CFF" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h3>Data Security</h3>
+                    <p>Enterprise-grade security protocols ensure your sensitive business data is protected at all
+                        times.</p>
+                </div>
+                <div class="benefit-item" data-aos="fade-up" data-aos-delay="600">
+                    <div class="benefit-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="24" r="24" fill="url(#grad-roi)" />
+                            <path d="M12 32L18 26L24 30L36 18" stroke="white" stroke-width="3" fill="none"
+                                stroke-linecap="round" />
+                            <circle cx="12" cy="32" r="3" fill="white" />
+                            <circle cx="18" cy="26" r="3" fill="white" />
+                            <circle cx="24" cy="30" r="3" fill="white" />
+                            <circle cx="36" cy="18" r="3" fill="white" />
+                            <defs>
+                                <linearGradient id="grad-roi" x1="0" y1="0" x2="48" y2="48">
+                                    <stop stop-color="#00FFFF" />
+                                    <stop offset="1" stop-color="#7F00FF" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h3>Actionable Alerts</h3>
+                    <p>Set up smart alerts to notify you of critical changes, anomalies, or when goals are met.</p>
                 </div>
             </div>
         </div>
@@ -187,20 +280,34 @@
             </h2>
             <div class="features-grid">
                 <div class="feature-box" data-aos="fade-up" data-aos-delay="100">
-                    <h3>Unified Data</h3>
-                    <p>Connect data from SQL, Google Sheets, APIs, and more into one view.</p>
+                    <h3>Interactive Visualizations</h3>
+                    <p>Drill down into data with interactive charts, maps, and graphs. Filter, sort, and explore your
+                        data intuitively.</p>
                 </div>
                 <div class="feature-box" data-aos="fade-up" data-aos-delay="200">
-                    <h3>Interactive Charts</h3>
-                    <p>Drill down into data points with interactive graphs and tables.</p>
+                    <h3>Natural Language Query</h3>
+                    <p>Ask questions about your data in plain English (e.g., "What were sales last week?") and get
+                        instant visual answers.</p>
                 </div>
                 <div class="feature-box" data-aos="fade-up" data-aos-delay="300">
-                    <h3>Smart Alerts</h3>
-                    <p>Get notified automatically when metrics hit critical thresholds.</p>
+                    <h3>Automated Reporting</h3>
+                    <p>Schedule PDF or email reports to be sent automatically to your team or stakeholders on a daily,
+                        weekly, or monthly basis.</p>
                 </div>
                 <div class="feature-box" data-aos="fade-up" data-aos-delay="400">
+                    <h3>Anomaly Detection</h3>
+                    <p>AI algorithms automatically detect statistical anomalies and outliers in your data, alerting you
+                        to potential issues.</p>
+                </div>
+                <div class="feature-box" data-aos="fade-up" data-aos-delay="500">
                     <h3>Role-Based Access</h3>
-                    <p>Control who sees what with granular permission settings.</p>
+                    <p>Control who sees what with granular permission settings. Share dashboards securely with team
+                        members or clients.</p>
+                </div>
+                <div class="feature-box" data-aos="fade-up" data-aos-delay="600">
+                    <h3>Mobile App</h3>
+                    <p>Access your dashboards on the go with our fully responsive mobile design and dedicated mobile app
+                        integration.</p>
                 </div>
             </div>
         </div>
@@ -213,23 +320,27 @@
             <div class="process-steps">
                 <div class="process-step" data-aos="fade-up" data-aos-delay="100">
                     <div class="step-number">1</div>
-                    <h3>Connect</h3>
-                    <p>We securely connect to your various data sources.</p>
+                    <h3>Data Integration</h3>
+                    <p>We connect to your data sources (SQL, APIs, Spreadsheets, CRM) and set up secure data pipelines.
+                    </p>
                 </div>
                 <div class="process-step" data-aos="fade-up" data-aos-delay="200">
                     <div class="step-number">2</div>
-                    <h3>Model</h3>
-                    <p>We clean, aggregate, and structure the data for analysis.</p>
+                    <h3>Modeling & Design</h3>
+                    <p>We design the data models and dashboard layout, focusing on UX and your specific business KPIs.
+                    </p>
                 </div>
                 <div class="process-step" data-aos="fade-up" data-aos-delay="300">
                     <div class="step-number">3</div>
-                    <h3>Visualize</h3>
-                    <p>We build intuitive dashboards tailored to your KPIs.</p>
+                    <h3>AI Implementation</h3>
+                    <p>We configure the AI algorithms for predictive analytics, anomaly detection, and insights
+                        generation.</p>
                 </div>
                 <div class="process-step" data-aos="fade-up" data-aos-delay="400">
                     <div class="step-number">4</div>
-                    <h3>Automate</h3>
-                    <p>Set up automated reports and alerts.</p>
+                    <h3>Deployment</h3>
+                    <p>We deploy the dashboard, set up user accounts, and provide training on how to use the insights
+                        effectively.</p>
                 </div>
             </div>
         </div>
@@ -240,16 +351,30 @@
             <h2 class="section-title text-center" data-aos="fade-up">Use <span class="gradient-text">Cases</span></h2>
             <div class="use-cases-grid">
                 <div class="use-case-card" data-aos="fade-up" data-aos-delay="100">
-                    <h3>Sales & Marketing</h3>
-                    <p>Track campaign ROI, lead velocity, and revenue goals.</p>
+                    <h3>Executive Overview</h3>
+                    <p>High-level view of company performance, revenue, and growth metrics for C-suite executives.</p>
                 </div>
                 <div class="use-case-card" data-aos="fade-up" data-aos-delay="200">
-                    <h3>Operations</h3>
-                    <p>Monitor inventory, logistics, and resource utilization.</p>
+                    <h3>Sales Performance</h3>
+                    <p>Track team performance, pipeline health, conversion rates, and revenue forecasts in real-time.
+                    </p>
                 </div>
                 <div class="use-case-card" data-aos="fade-up" data-aos-delay="300">
-                    <h3>Executive</h3>
-                    <p>High-level overview of company health and key metrics.</p>
+                    <h3>Marketing Analytics</h3>
+                    <p>Monitor campaign ROI, website traffic, social media engagement, and lead generation sources.</p>
+                </div>
+                <div class="use-case-card" data-aos="fade-up" data-aos-delay="400">
+                    <h3>Operational Efficiency</h3>
+                    <p>Track inventory levels, supply chain performance, production metrics, and resource utilization.
+                    </p>
+                </div>
+                <div class="use-case-card" data-aos="fade-up" data-aos-delay="500">
+                    <h3>Customer Support</h3>
+                    <p>Monitor ticket volume, response times, customer satisfaction scores, and agent performance.</p>
+                </div>
+                <div class="use-case-card" data-aos="fade-up" data-aos-delay="600">
+                    <h3>Financial Reporting</h3>
+                    <p>Real-time P&L, cash flow analysis, expense tracking, and budget variance reports.</p>
                 </div>
             </div>
         </div>
@@ -261,18 +386,34 @@
                     class="gradient-text">Questions</span></h2>
             <div class="faq-grid">
                 <div class="faq-item" data-aos="fade-up">
-                    <h3>What data sources can you connect?</h3>
-                    <p>We can connect to almost any data source including SQL databases, REST APIs, Google Sheets,
-                        Salesforce, HubSpot, and more.</p>
+                    <h3>What data sources can you connect to?</h3>
+                    <p>We connect to almost anything: SQL databases (MySQL, PostgreSQL), APIs (Salesforce, HubSpot,
+                        Stripe), Google Sheets, Excel, and more.</p>
                 </div>
                 <div class="faq-item" data-aos="fade-up">
                     <h3>Is the data real-time?</h3>
-                    <p>Yes, we can configure dashboards to update in real-time or on a scheduled interval depending on
-                        your needs.</p>
+                    <p>Yes, depending on the source. API and database connections can be configured to update in
+                        real-time or at set intervals (e.g., every 15 mins).</p>
                 </div>
                 <div class="faq-item" data-aos="fade-up">
                     <h3>Can I export the data?</h3>
-                    <p>Yes, all dashboards come with export functionality to PDF, CSV, or Excel formats.</p>
+                    <p>Absolutely. You can export charts as images or PDFs, and underlying data as CSV or Excel files
+                        for further analysis.</p>
+                </div>
+                <div class="faq-item" data-aos="fade-up">
+                    <h3>Is it secure?</h3>
+                    <p>Security is our top priority. We use end-to-end encryption, secure authentication (SSO), and
+                        role-based access control to protect your data.</p>
+                </div>
+                <div class="faq-item" data-aos="fade-up">
+                    <h3>Do I need technical skills to use it?</h3>
+                    <p>No. Our dashboards are designed for business users. The interface is intuitive, and features like
+                        Natural Language Query make it easy for anyone to find answers.</p>
+                </div>
+                <div class="faq-item" data-aos="fade-up">
+                    <h3>Can you build custom visualizations?</h3>
+                    <p>Yes! If our standard library of charts doesn't fit your needs, we can build completely custom
+                        visualizations using D3.js or other libraries.</p>
                 </div>
             </div>
         </div>
