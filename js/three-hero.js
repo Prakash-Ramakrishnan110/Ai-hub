@@ -12,13 +12,13 @@ const QUALITY = {
     LOW: cpuCores < 4 || isMobile || isTablet
 };
 
-// Optimized configuration - AI themed
+// Optimized configuration - AI themed with enhanced visibility
 const CONFIG = {
-    neuralNodes: QUALITY.HIGH ? 100 : QUALITY.MEDIUM ? 60 : 40,
-    connectionDistance: 180,
-    maxConnections: QUALITY.HIGH ? 120 : QUALITY.MEDIUM ? 80 : 50,
-    dataOrbs: QUALITY.HIGH ? 6 : QUALITY.MEDIUM ? 4 : 3,
-    backgroundParticles: QUALITY.HIGH ? 200 : QUALITY.MEDIUM ? 100 : 50,
+    neuralNodes: QUALITY.HIGH ? 120 : QUALITY.MEDIUM ? 80 : 50,
+    connectionDistance: 200,
+    maxConnections: QUALITY.HIGH ? 150 : QUALITY.MEDIUM ? 100 : 60,
+    dataOrbs: QUALITY.HIGH ? 8 : QUALITY.MEDIUM ? 6 : 4,
+    backgroundParticles: QUALITY.HIGH ? 250 : QUALITY.MEDIUM ? 150 : 80,
     enableBloom: QUALITY.HIGH || QUALITY.MEDIUM,
     enableDataFlow: !QUALITY.LOW,
     geometryDetail: QUALITY.HIGH ? 16 : QUALITY.MEDIUM ? 12 : 8,
@@ -72,19 +72,19 @@ function init() {
     }
     createBackgroundParticles();
 
-    // AI-themed lighting
-    const ambientLight = new THREE.AmbientLight(0x005CFF, 0.5);
+    // AI-themed lighting with enhanced brightness
+    const ambientLight = new THREE.AmbientLight(0x005CFF, 0.8);
     scene.add(ambientLight);
 
-    const pointLight1 = new THREE.PointLight(0x00FFFF, 2, 2000);
+    const pointLight1 = new THREE.PointLight(0x00FFFF, 3, 2500);
     pointLight1.position.set(400, 400, 400);
     scene.add(pointLight1);
 
-    const pointLight2 = new THREE.PointLight(0x7F00FF, 2, 2000);
+    const pointLight2 = new THREE.PointLight(0x7F00FF, 3, 2500);
     pointLight2.position.set(-400, -400, -400);
     scene.add(pointLight2);
 
-    const pointLight3 = new THREE.PointLight(0x005CFF, 1.5, 1500);
+    const pointLight3 = new THREE.PointLight(0x005CFF, 2.5, 2000);
     pointLight3.position.set(0, 0, 500);
     scene.add(pointLight3);
 
@@ -141,10 +141,10 @@ function createNeuralNetwork() {
     geometry.userData.velocities = velocities;
 
     const material = new THREE.PointsMaterial({
-        size: QUALITY.HIGH ? 6 : QUALITY.MEDIUM ? 5 : 4,
+        size: QUALITY.HIGH ? 10 : QUALITY.MEDIUM ? 8 : 6,
         vertexColors: true,
         transparent: true,
-        opacity: 0.9,
+        opacity: 1.0,
         blending: THREE.AdditiveBlending,
         sizeAttenuation: true
     });
@@ -207,8 +207,9 @@ function createNeuralConnections(nodePositions) {
     const lineMaterial = new THREE.LineBasicMaterial({
         vertexColors: true,
         transparent: true,
-        opacity: 0.4,
-        blending: THREE.AdditiveBlending
+        opacity: 0.6,
+        blending: THREE.AdditiveBlending,
+        linewidth: 2
     });
 
     const connections = new THREE.LineSegments(lineGeometry, lineMaterial);
@@ -220,25 +221,25 @@ function createNeuralConnections(nodePositions) {
 
 // Create AI Core - central glowing sphere
 function createAICore() {
-    const geometry = new THREE.IcosahedronGeometry(80, CONFIG.geometryDetail);
+    const geometry = new THREE.IcosahedronGeometry(120, CONFIG.geometryDetail);
     const material = new THREE.MeshPhongMaterial({
         color: 0x00FFFF,
         emissive: 0x005CFF,
-        emissiveIntensity: 0.5,
+        emissiveIntensity: 1.0,
         wireframe: true,
         transparent: true,
-        opacity: 0.6
+        opacity: 0.8
     });
 
     aiCore = new THREE.Mesh(geometry, material);
     scene.add(aiCore);
 
     // Add inner glow
-    const innerGeometry = new THREE.IcosahedronGeometry(60, CONFIG.geometryDetail);
+    const innerGeometry = new THREE.IcosahedronGeometry(90, CONFIG.geometryDetail);
     const innerMaterial = new THREE.MeshBasicMaterial({
         color: 0x7F00FF,
         transparent: true,
-        opacity: 0.3,
+        opacity: 0.5,
         blending: THREE.AdditiveBlending
     });
     const innerCore = new THREE.Mesh(innerGeometry, innerMaterial);
@@ -248,13 +249,13 @@ function createAICore() {
 // Create Data Orbs - floating data nodes
 function createDataOrbs() {
     for (let i = 0; i < CONFIG.dataOrbs; i++) {
-        const geometry = new THREE.OctahedronGeometry(20 + Math.random() * 15, CONFIG.geometryDetail);
+        const geometry = new THREE.OctahedronGeometry(30 + Math.random() * 25, CONFIG.geometryDetail);
         const material = new THREE.MeshPhongMaterial({
             color: new THREE.Color().setHSL(0.5 + Math.random() * 0.3, 1, 0.6),
-            emissive: new THREE.Color().setHSL(0.5 + Math.random() * 0.3, 1, 0.3),
-            emissiveIntensity: 0.7,
+            emissive: new THREE.Color().setHSL(0.5 + Math.random() * 0.3, 1, 0.4),
+            emissiveIntensity: 1.0,
             transparent: true,
-            opacity: 0.8,
+            opacity: 0.9,
             wireframe: Math.random() > 0.5
         });
 
