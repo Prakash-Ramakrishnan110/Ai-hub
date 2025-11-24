@@ -12,23 +12,23 @@ const QUALITY = {
     LOW: cpuCores < 4 || isMobile || isTablet
 };
 
-// Optimized configuration - always enabled but scaled
+// Optimized configuration - AI themed
 const CONFIG = {
-    brainParticles: QUALITY.HIGH ? 80 : QUALITY.MEDIUM ? 50 : 30,
-    connectionDistance: 150,
-    maxConnections: QUALITY.HIGH ? 100 : QUALITY.MEDIUM ? 60 : 30,
-    floatingSpheres: QUALITY.HIGH ? 4 : QUALITY.MEDIUM ? 3 : 2,
-    backgroundParticles: QUALITY.HIGH ? 150 : QUALITY.MEDIUM ? 80 : 40,
+    neuralNodes: QUALITY.HIGH ? 100 : QUALITY.MEDIUM ? 60 : 40,
+    connectionDistance: 180,
+    maxConnections: QUALITY.HIGH ? 120 : QUALITY.MEDIUM ? 80 : 50,
+    dataOrbs: QUALITY.HIGH ? 6 : QUALITY.MEDIUM ? 4 : 3,
+    backgroundParticles: QUALITY.HIGH ? 200 : QUALITY.MEDIUM ? 100 : 50,
     enableBloom: QUALITY.HIGH || QUALITY.MEDIUM,
-    enableWaves: !QUALITY.LOW,
-    geometryDetail: QUALITY.HIGH ? 12 : QUALITY.MEDIUM ? 8 : 6,
+    enableDataFlow: !QUALITY.LOW,
+    geometryDetail: QUALITY.HIGH ? 16 : QUALITY.MEDIUM ? 12 : 8,
     targetFPS: 60,
-    updateInterval: QUALITY.LOW ? 2 : 1  // Update every N frames
+    updateInterval: QUALITY.LOW ? 2 : 1
 };
 
-let scene, camera, renderer, composer;
-let brain, particles, floatingSpheres = [];
-let hologramCube, waves = [];
+let scene, camera, renderer;
+let neuralNetwork, dataOrbs = [];
+let aiCore, dataStreams = [];
 let mouseX = 0, mouseY = 0;
 let targetRotationX = 0, targetRotationY = 0;
 let frameCount = 0;
@@ -41,7 +41,7 @@ function init() {
 
     // Scene
     scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x000000, 0.0008);
+    scene.fog = new THREE.FogExp2(0x000000, 0.0006);
 
     // Camera
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 5000);
@@ -63,28 +63,32 @@ function init() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     container.appendChild(renderer.domElement);
 
-    // Create 3D elements with adaptive quality
-    createAIBrain();
-    createFloatingSpheres();
-    if (CONFIG.enableWaves) {
-        createHologramCube();
-        createWaves();
+    // Create AI-themed 3D elements
+    createNeuralNetwork();
+    createAICore();
+    createDataOrbs();
+    if (CONFIG.enableDataFlow) {
+        createDataStreams();
     }
     createBackgroundParticles();
 
-    // Optimized lighting
-    const ambientLight = new THREE.AmbientLight(0x005CFF, 0.4);
+    // AI-themed lighting
+    const ambientLight = new THREE.AmbientLight(0x005CFF, 0.5);
     scene.add(ambientLight);
 
-    const pointLight1 = new THREE.PointLight(0x005CFF, 1.5, 1500);
-    pointLight1.position.set(300, 300, 300);
+    const pointLight1 = new THREE.PointLight(0x00FFFF, 2, 2000);
+    pointLight1.position.set(400, 400, 400);
     scene.add(pointLight1);
 
-    const pointLight2 = new THREE.PointLight(0x7F00FF, 1.5, 1500);
-    pointLight2.position.set(-300, -300, -300);
+    const pointLight2 = new THREE.PointLight(0x7F00FF, 2, 2000);
+    pointLight2.position.set(-400, -400, -400);
     scene.add(pointLight2);
 
-    // Event Listeners with throttling
+    const pointLight3 = new THREE.PointLight(0x005CFF, 1.5, 1500);
+    pointLight3.position.set(0, 0, 500);
+    scene.add(pointLight3);
+
+    // Event Listeners
     window.addEventListener('resize', onWindowResize, { passive: true });
 
     let mouseMoveTimeout;
@@ -98,186 +102,173 @@ function init() {
 
     // Start animation loop
     animate();
-
-    console.log(`3D initialized with ${QUALITY.HIGH ? 'HIGH' : QUALITY.MEDIUM ? 'MEDIUM' : 'LOW'} quality`);
 }
 
-function createAIBrain() {
-    const brainGroup = new THREE.Group();
-
-    // Optimized node geometry
-    const nodeGeometry = new THREE.SphereGeometry(4, CONFIG.geometryDetail, CONFIG.geometryDetail);
-    const nodeMaterial = new THREE.MeshBasicMaterial({
-        color: 0x005CFF,
-        transparent: true,
-        opacity: 0.8
-    });
-
+// Create Neural Network with interconnected nodes
+function createNeuralNetwork() {
+    const geometry = new THREE.BufferGeometry();
     const positions = [];
-    const nodes = [];
+    const colors = [];
+    const velocities = [];
 
-    for (let i = 0; i < CONFIG.brainParticles; i++) {
+    // Create neural nodes in a brain-like structure
+    for (let i = 0; i < CONFIG.neuralNodes; i++) {
         const theta = Math.random() * Math.PI * 2;
         const phi = Math.acos(2 * Math.random() - 1);
-        const r = 300 + Math.random() * 50;
+        const radius = 200 + Math.random() * 150;
 
-        const x = r * Math.sin(phi) * Math.cos(theta);
-        const y = r * Math.sin(phi) * Math.sin(theta);
-        const z = r * Math.cos(phi);
+        const x = radius * Math.sin(phi) * Math.cos(theta);
+        const y = radius * Math.sin(phi) * Math.sin(theta);
+        const z = radius * Math.cos(phi);
 
-        positions.push(new THREE.Vector3(x, y, z));
+        positions.push(x, y, z);
 
-        const node = new THREE.Mesh(nodeGeometry, nodeMaterial.clone());
-        node.position.set(x, y, z);
-        node.matrixAutoUpdate = false;  // Performance optimization
-        node.updateMatrix();
+        // Gradient colors for AI theme
+        const color = new THREE.Color();
+        color.setHSL(0.55 + Math.random() * 0.2, 1, 0.5 + Math.random() * 0.3);
+        colors.push(color.r, color.g, color.b);
 
-        node.userData = {
-            pulsePhase: Math.random() * Math.PI * 2,
-            pulseSpeed: 0.015 + Math.random() * 0.01,
-            baseScale: 1
-        };
-
-        brainGroup.add(node);
-        nodes.push(node);
-    }
-
-    // Optimized connections
-    const lineMaterial = new THREE.LineBasicMaterial({
-        color: 0x005CFF,
-        transparent: true,
-        opacity: 0.25,
-        blending: THREE.AdditiveBlending
-    });
-
-    let connectionCount = 0;
-
-    for (let i = 0; i < positions.length && connectionCount < CONFIG.maxConnections; i++) {
-        for (let j = i + 1; j < positions.length && connectionCount < CONFIG.maxConnections; j++) {
-            const distance = positions[i].distanceTo(positions[j]);
-            if (distance < CONFIG.connectionDistance) {
-                const geometry = new THREE.BufferGeometry().setFromPoints([positions[i], positions[j]]);
-                const line = new THREE.Line(geometry, lineMaterial);
-                brainGroup.add(line);
-                connectionCount++;
-            }
-        }
-    }
-
-    brainGroup.userData = { nodes };
-    brain = brainGroup;
-    scene.add(brain);
-}
-
-function createFloatingSpheres() {
-    const sizes = [40, 55, 45, 50];
-
-    for (let i = 0; i < CONFIG.floatingSpheres; i++) {
-        const geometry = new THREE.SphereGeometry(sizes[i], CONFIG.geometryDetail * 1.5, CONFIG.geometryDetail * 1.5);
-        const material = new THREE.MeshPhongMaterial({
-            color: i % 2 === 0 ? 0x005CFF : 0x7F00FF,
-            transparent: true,
-            opacity: 0.12,
-            emissive: i % 2 === 0 ? 0x005CFF : 0x7F00FF,
-            emissiveIntensity: 0.4,
-            shininess: 80,
-            flatShading: true  // Performance optimization
-        });
-
-        const sphere = new THREE.Mesh(geometry, material);
-
-        const angle = (i / CONFIG.floatingSpheres) * Math.PI * 2;
-        const radius = 600 + Math.random() * 200;
-        sphere.position.set(
-            Math.cos(angle) * radius,
-            (Math.random() - 0.5) * 400,
-            Math.sin(angle) * radius
+        // Random velocities for organic movement
+        velocities.push(
+            (Math.random() - 0.5) * 0.5,
+            (Math.random() - 0.5) * 0.5,
+            (Math.random() - 0.5) * 0.5
         );
-
-        sphere.userData = {
-            floatSpeed: 0.0008 + Math.random() * 0.0015,
-            floatOffset: Math.random() * Math.PI * 2,
-            rotationSpeed: 0.0008 + Math.random() * 0.0015,
-            baseY: sphere.position.y
-        };
-
-        floatingSpheres.push(sphere);
-        scene.add(sphere);
     }
+
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+    geometry.userData.velocities = velocities;
+
+    const material = new THREE.PointsMaterial({
+        size: QUALITY.HIGH ? 6 : QUALITY.MEDIUM ? 5 : 4,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.9,
+        blending: THREE.AdditiveBlending,
+        sizeAttenuation: true
+    });
+
+    neuralNetwork = new THREE.Points(geometry, material);
+    scene.add(neuralNetwork);
 }
 
-function createHologramCube() {
-    const group = new THREE.Group();
-
-    const cubeGeometry = new THREE.BoxGeometry(150, 150, 150);
-    const edges = new THREE.EdgesGeometry(cubeGeometry);
-    const lineMaterial = new THREE.LineBasicMaterial({
+// Create AI Core - central glowing sphere
+function createAICore() {
+    const geometry = new THREE.IcosahedronGeometry(80, CONFIG.geometryDetail);
+    const material = new THREE.MeshPhongMaterial({
         color: 0x00FFFF,
-        transparent: true,
-        opacity: 0.5
-    });
-    const cube = new THREE.LineSegments(edges, lineMaterial);
-    group.add(cube);
-
-    const coreGeometry = new THREE.IcosahedronGeometry(60, 0);
-    const coreMaterial = new THREE.MeshBasicMaterial({
-        color: 0x005CFF,
+        emissive: 0x005CFF,
+        emissiveIntensity: 0.5,
         wireframe: true,
         transparent: true,
-        opacity: 0.7
+        opacity: 0.6
     });
-    const core = new THREE.Mesh(coreGeometry, coreMaterial);
-    group.add(core);
 
-    group.position.set(500, -200, -300);
-    group.userData = { cube, core };
+    aiCore = new THREE.Mesh(geometry, material);
+    scene.add(aiCore);
 
-    hologramCube = group;
-    scene.add(hologramCube);
+    // Add inner glow
+    const innerGeometry = new THREE.IcosahedronGeometry(60, CONFIG.geometryDetail);
+    const innerMaterial = new THREE.MeshBasicMaterial({
+        color: 0x7F00FF,
+        transparent: true,
+        opacity: 0.3,
+        blending: THREE.AdditiveBlending
+    });
+    const innerCore = new THREE.Mesh(innerGeometry, innerMaterial);
+    aiCore.add(innerCore);
 }
 
-function createWaves() {
-    for (let i = 0; i < 2; i++) {  // Reduced from 3 to 2
-        const geometry = new THREE.RingGeometry(100, 105, 24);
-        const material = new THREE.MeshBasicMaterial({
-            color: 0x005CFF,
+// Create Data Orbs - floating data nodes
+function createDataOrbs() {
+    for (let i = 0; i < CONFIG.dataOrbs; i++) {
+        const geometry = new THREE.OctahedronGeometry(20 + Math.random() * 15, CONFIG.geometryDetail);
+        const material = new THREE.MeshPhongMaterial({
+            color: new THREE.Color().setHSL(0.5 + Math.random() * 0.3, 1, 0.6),
+            emissive: new THREE.Color().setHSL(0.5 + Math.random() * 0.3, 1, 0.3),
+            emissiveIntensity: 0.7,
             transparent: true,
-            opacity: 0,
-            side: THREE.DoubleSide
+            opacity: 0.8,
+            wireframe: Math.random() > 0.5
         });
 
-        const ring = new THREE.Mesh(geometry, material);
-        ring.rotation.x = Math.PI / 2;
-        ring.position.set(0, -400, 0);
+        const orb = new THREE.Mesh(geometry, material);
 
-        ring.userData = {
-            startTime: Date.now() + i * 1500,
-            duration: 3000
-        };
+        // Position orbs in orbit around center
+        const angle = (i / CONFIG.dataOrbs) * Math.PI * 2;
+        const radius = 300 + Math.random() * 200;
+        orb.position.x = Math.cos(angle) * radius;
+        orb.position.y = Math.sin(angle) * radius;
+        orb.position.z = (Math.random() - 0.5) * 400;
 
-        waves.push(ring);
-        scene.add(ring);
+        orb.userData.angle = angle;
+        orb.userData.radius = radius;
+        orb.userData.speed = 0.0003 + Math.random() * 0.0005;
+        orb.userData.rotationSpeed = (Math.random() - 0.5) * 0.02;
+
+        dataOrbs.push(orb);
+        scene.add(orb);
     }
 }
 
+// Create Data Streams - flowing particles
+function createDataStreams() {
+    for (let i = 0; i < 3; i++) {
+        const geometry = new THREE.BufferGeometry();
+        const positions = [];
+        const colors = [];
+
+        // Create stream path
+        for (let j = 0; j < 50; j++) {
+            const t = j / 50;
+            const angle = t * Math.PI * 4 + (i * Math.PI * 2 / 3);
+            const radius = 250 + Math.sin(t * Math.PI * 2) * 100;
+
+            positions.push(
+                Math.cos(angle) * radius,
+                Math.sin(angle) * radius,
+                (t - 0.5) * 600
+            );
+
+            const color = new THREE.Color();
+            color.setHSL(0.5 + i * 0.15, 1, 0.5 + t * 0.3);
+            colors.push(color.r, color.g, color.b);
+        }
+
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+        geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+        const material = new THREE.PointsMaterial({
+            size: 4,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending
+        });
+
+        const stream = new THREE.Points(geometry, material);
+        stream.userData.offset = i * 100;
+        dataStreams.push(stream);
+        scene.add(stream);
+    }
+}
+
+// Create Background Particles
 function createBackgroundParticles() {
     const geometry = new THREE.BufferGeometry();
     const positions = [];
     const colors = [];
 
-    const color1 = new THREE.Color(0x005CFF);
-    const color2 = new THREE.Color(0x7F00FF);
-    const color3 = new THREE.Color(0x00FFFF);
-
     for (let i = 0; i < CONFIG.backgroundParticles; i++) {
         positions.push(
-            (Math.random() - 0.5) * 3000,
-            (Math.random() - 0.5) * 3000,
+            (Math.random() - 0.5) * 2000,
+            (Math.random() - 0.5) * 2000,
             (Math.random() - 0.5) * 2000
         );
 
-        const colorChoice = Math.random();
-        const color = colorChoice < 0.33 ? color1 : colorChoice < 0.66 ? color2 : color3;
+        const color = new THREE.Color();
+        color.setHSL(0.5 + Math.random() * 0.3, 0.8, 0.5);
         colors.push(color.r, color.g, color.b);
     }
 
@@ -285,122 +276,107 @@ function createBackgroundParticles() {
     geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
 
     const material = new THREE.PointsMaterial({
-        size: 3,
+        size: 2,
         vertexColors: true,
         transparent: true,
-        opacity: 0.5,
-        blending: THREE.AdditiveBlending,
-        sizeAttenuation: true
+        opacity: 0.6,
+        blending: THREE.AdditiveBlending
     });
 
-    particles = new THREE.Points(geometry, material);
+    const particles = new THREE.Points(geometry, material);
     scene.add(particles);
 }
 
+// Animation loop
+function animate() {
+    requestAnimationFrame(animate);
+
+    frameCount++;
+    if (frameCount % CONFIG.updateInterval !== 0) return;
+
+    // FPS calculation
+    const currentTime = Date.now();
+    const delta = currentTime - lastTime;
+    fps = 1000 / delta;
+    lastTime = currentTime;
+
+    // Smooth camera movement
+    targetRotationX += (mouseX * 0.0001 - targetRotationX) * 0.05;
+    targetRotationY += (mouseY * 0.0001 - targetRotationY) * 0.05;
+
+    // Animate Neural Network
+    if (neuralNetwork) {
+        neuralNetwork.rotation.y += 0.0005;
+        neuralNetwork.rotation.x = targetRotationY;
+        neuralNetwork.rotation.z = targetRotationX;
+
+        // Animate neural nodes
+        const positions = neuralNetwork.geometry.attributes.position.array;
+        const velocities = neuralNetwork.geometry.userData.velocities;
+
+        for (let i = 0; i < positions.length; i += 3) {
+            positions[i] += velocities[i] * 0.5;
+            positions[i + 1] += velocities[i + 1] * 0.5;
+            positions[i + 2] += velocities[i + 2] * 0.5;
+
+            // Bounce back if too far
+            const distance = Math.sqrt(
+                positions[i] ** 2 + positions[i + 1] ** 2 + positions[i + 2] ** 2
+            );
+            if (distance > 400 || distance < 150) {
+                velocities[i] *= -1;
+                velocities[i + 1] *= -1;
+                velocities[i + 2] *= -1;
+            }
+        }
+        neuralNetwork.geometry.attributes.position.needsUpdate = true;
+    }
+
+    // Animate AI Core
+    if (aiCore) {
+        aiCore.rotation.x += 0.001;
+        aiCore.rotation.y += 0.002;
+        aiCore.children[0].rotation.x -= 0.002;
+        aiCore.children[0].rotation.y -= 0.001;
+
+        // Pulse effect
+        const scale = 1 + Math.sin(Date.now() * 0.001) * 0.1;
+        aiCore.scale.set(scale, scale, scale);
+    }
+
+    // Animate Data Orbs
+    dataOrbs.forEach(orb => {
+        orb.userData.angle += orb.userData.speed;
+        orb.position.x = Math.cos(orb.userData.angle) * orb.userData.radius;
+        orb.position.y = Math.sin(orb.userData.angle) * orb.userData.radius;
+        orb.rotation.x += orb.userData.rotationSpeed;
+        orb.rotation.y += orb.userData.rotationSpeed * 0.7;
+    });
+
+    // Animate Data Streams
+    dataStreams.forEach(stream => {
+        stream.rotation.z += 0.001;
+        stream.userData.offset += 1;
+        if (stream.userData.offset > 100) stream.userData.offset = 0;
+    });
+
+    renderer.render(scene, camera);
+}
+
 function onWindowResize() {
-    if (!camera || !renderer) return;
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
 function onMouseMove(event) {
-    mouseX = (event.clientX / window.innerWidth) - 0.5;
-    mouseY = (event.clientY / window.innerHeight) - 0.5;
-    targetRotationY = mouseX * 0.3;
-    targetRotationX = mouseY * 0.3;
+    mouseX = event.clientX - window.innerWidth / 2;
+    mouseY = event.clientY - window.innerHeight / 2;
 }
 
-function animate() {
-    requestAnimationFrame(animate);
-
-    // FPS monitoring
-    frameCount++;
-    const currentTime = Date.now();
-    if (currentTime >= lastTime + 1000) {
-        fps = frameCount;
-        frameCount = 0;
-        lastTime = currentTime;
-    }
-
-    render();
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
 }
-
-function render() {
-    const time = Date.now() * 0.001;
-    const shouldUpdate = frameCount % CONFIG.updateInterval === 0;
-
-    // Rotate AI Brain
-    if (brain && shouldUpdate) {
-        brain.rotation.y += 0.0008;
-        brain.rotation.x += (targetRotationX - brain.rotation.x) * 0.03;
-        brain.rotation.y += (targetRotationY - brain.rotation.y) * 0.03;
-
-        // Optimized node pulsing - update only visible nodes
-        const nodesToUpdate = Math.ceil(brain.userData.nodes.length / CONFIG.updateInterval);
-        const startIdx = (frameCount % CONFIG.updateInterval) * nodesToUpdate;
-        const endIdx = Math.min(startIdx + nodesToUpdate, brain.userData.nodes.length);
-
-        for (let i = startIdx; i < endIdx; i++) {
-            const node = brain.userData.nodes[i];
-            const pulse = Math.sin(time * node.userData.pulseSpeed + node.userData.pulsePhase);
-            const scale = 1 + pulse * 0.25;
-            node.scale.set(scale, scale, scale);
-            node.material.opacity = 0.6 + pulse * 0.2;
-            node.matrixAutoUpdate = true;
-            node.updateMatrix();
-            node.matrixAutoUpdate = false;
-        }
-    }
-
-    // Animate floating spheres
-    if (shouldUpdate) {
-        floatingSpheres.forEach(sphere => {
-            const floatAmount = Math.sin(time * sphere.userData.floatSpeed + sphere.userData.floatOffset);
-            sphere.position.y = sphere.userData.baseY + floatAmount * 15;
-            sphere.rotation.x += sphere.userData.rotationSpeed;
-            sphere.rotation.y += sphere.userData.rotationSpeed;
-        });
-    }
-
-    // Rotate hologram cube
-    if (hologramCube && shouldUpdate) {
-        hologramCube.userData.cube.rotation.x += 0.004;
-        hologramCube.userData.cube.rotation.y += 0.004;
-        hologramCube.userData.core.rotation.x -= 0.008;
-        hologramCube.userData.core.rotation.y -= 0.008;
-    }
-
-    // Animate waves
-    if (shouldUpdate) {
-        waves.forEach(wave => {
-            const elapsed = Date.now() - wave.userData.startTime;
-            const progress = (elapsed % wave.userData.duration) / wave.userData.duration;
-
-            const scale = 1 + progress * 2.5;
-            wave.scale.set(scale, scale, 1);
-            wave.material.opacity = (1 - progress) * 0.4;
-
-            if (progress > 0.95) {
-                wave.userData.startTime = Date.now();
-            }
-        });
-    }
-
-    // Rotate background particles
-    if (particles) {
-        particles.rotation.y += 0.0001;
-    }
-
-    // Smooth camera parallax
-    camera.position.x += (mouseX * 80 - camera.position.x) * 0.03;
-    camera.position.y += (-mouseY * 80 - camera.position.y) * 0.03;
-    camera.lookAt(scene.position);
-
-    // Render
-    renderer.render(scene, camera);
-}
-
-// Initialize
-init();
-
