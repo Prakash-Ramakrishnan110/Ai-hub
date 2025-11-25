@@ -140,7 +140,7 @@
                             </svg>
                         </div>
                         <h3>Email</h3>
-                        <p>hello@praihub.com</p>
+                        <p>prakash7418r@gmail.com</p>
                     </div>
                     <div class="service-card" style="margin-bottom: 20px;">
                         <div class="service-icon">
@@ -150,7 +150,7 @@
                             </svg>
                         </div>
                         <h3>WhatsApp</h3>
-                        <p>+1 (555) 123-4567</p>
+                        <p>Available on request</p>
                     </div>
                     <div class="service-card" style="margin-bottom: 20px;">
                         <div class="service-icon">
@@ -159,8 +159,8 @@
                                     d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
                             </svg>
                         </div>
-                        <h3>Hours</h3>
-                        <p>Mon-Fri: 9am - 6pm EST</p>
+                        <h3>Response Time</h3>
+                        <p>Within 24 hours</p>
                     </div>
                 </div>
 
@@ -168,29 +168,39 @@
                 <div class="contact-form" data-aos="fade-left">
                     <div class="service-card">
                         <h3 style="margin-bottom: 30px;">Send us a message</h3>
-                        <form>
+                        <form action="https://formspree.io/f/xovzpojw" method="POST">
                             <div>
                                 <label>Name</label>
-                                <input type="text" placeholder="Your Name">
+                                <input type="text" name="name" placeholder="Your Name" required>
                             </div>
                             <div>
                                 <label>Email</label>
-                                <input type="email" placeholder="your@email.com">
+                                <input type="email" name="email" placeholder="your@email.com" required>
                             </div>
                             <div>
                                 <label>Service Interested In</label>
-                                <select>
+                                <select name="service" required>
+                                    <option value="">Select a service</option>
                                     <option>AI Chatbot</option>
                                     <option>Automation</option>
                                     <option>Website Development</option>
+                                    <option>3D Experiences</option>
+                                    <option>Custom GPT</option>
+                                    <option>Dashboard</option>
+                                    <option>Content Generation</option>
+                                    <option>Marketing</option>
+                                    <option>Security</option>
                                     <option>Custom AI Solution</option>
                                     <option>Other</option>
                                 </select>
                             </div>
                             <div>
                                 <label>Message</label>
-                                <textarea rows="5" placeholder="Tell us about your project"></textarea>
+                                <textarea name="message" rows="5" placeholder="Tell us about your project"
+                                    required></textarea>
                             </div>
+                            <input type="hidden" name="_subject" value="New Contact Form Submission - PR AI Hub">
+                            <input type="hidden" name="_cc" value="prakash7418r@gmail.com">
                             <button type="submit" class="btn btn-primary">Send Message</button>
                         </form>
                     </div>
@@ -252,7 +262,7 @@
                 <div class="footer-col">
                     <h4>Contact</h4>
                     <ul>
-                        <li><a href="mailto:hello@praihub.com">hello@praihub.com</a></li>
+                        <li><a href="mailto:prakash7418r@gmail.com">prakash7418r@gmail.com</a></li>
                         <li><a href="#">LinkedIn</a></li>
                         <li><a href="#">Instagram</a></li>
                         <li><a href="#">Twitter</a></li>

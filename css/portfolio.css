@@ -1,0 +1,313 @@
+/* Portfolio Page Styles */
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+}
+
+.portfolio-card {
+    background: var(--card-bg);
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+}
+
+.portfolio-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg,
+            rgba(0, 92, 255, 0.1) 0%,
+            rgba(127, 0, 255, 0.1) 50%,
+            rgba(0, 255, 255, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.portfolio-card:hover {
+    transform: translateY(-12px);
+    border-color: rgba(0, 92, 255, 0.3);
+    box-shadow:
+        0 20px 60px rgba(0, 92, 255, 0.2),
+        0 0 0 1px rgba(0, 92, 255, 0.1);
+}
+
+.portfolio-card:hover::before {
+    opacity: 1;
+}
+
+/* Portfolio Card Header */
+.portfolio-card-header {
+    padding: 40px;
+    background: linear-gradient(135deg,
+            rgba(0, 92, 255, 0.05) 0%,
+            rgba(127, 0, 255, 0.05) 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+}
+
+.portfolio-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s ease;
+}
+
+.portfolio-card:hover .portfolio-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.portfolio-icon::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    filter: blur(20px);
+    opacity: 0.5;
+}
+
+.portfolio-icon svg {
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+/* Category Badge */
+.portfolio-category {
+    display: inline-block;
+    padding: 6px 16px;
+    background: rgba(0, 92, 255, 0.1);
+    border: 1px solid rgba(0, 92, 255, 0.3);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--primary);
+    margin-bottom: 16px;
+}
+
+/* Portfolio Card Body */
+.portfolio-card-body {
+    padding: 40px;
+}
+
+.portfolio-card h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: all 0.3s ease;
+}
+
+.portfolio-card:hover h3 {
+    background: linear-gradient(135deg, var(--primary) 0%, #00FFFF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.portfolio-client {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.portfolio-client svg {
+    width: 16px;
+    height: 16px;
+    fill: var(--primary);
+}
+
+.portfolio-description {
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 24px;
+    font-size: 1rem;
+}
+
+/* Metrics Section */
+.portfolio-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 16px;
+    margin-top: 28px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.metric-item {
+    text-align: center;
+    padding: 16px;
+    background: rgba(0, 92, 255, 0.03);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 92, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.metric-item:hover {
+    background: rgba(0, 92, 255, 0.08);
+    border-color: rgba(0, 92, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.metric-value {
+    display: block;
+    font-size: 1.75rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary) 0%, #00FFFF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+}
+
+.metric-label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+/* Tech Stack */
+.portfolio-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+}
+
+.tech-tag {
+    padding: 8px 16px;
+    background: rgba(127, 0, 255, 0.08);
+    border: 1px solid rgba(127, 0, 255, 0.2);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: var(--text);
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.tech-tag:hover {
+    background: rgba(127, 0, 255, 0.15);
+    border-color: rgba(127, 0, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+/* View Project Link */
+.view-project {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+    padding: 12px 24px;
+    background: rgba(0, 92, 255, 0.1);
+    border: 1px solid rgba(0, 92, 255, 0.3);
+    border-radius: 12px;
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.view-project:hover {
+    background: rgba(0, 92, 255, 0.2);
+    border-color: var(--primary);
+    transform: translateX(4px);
+}
+
+.view-project svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+}
+
+.view-project:hover svg {
+    transform: translateX(4px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .portfolio-card-header,
+    .portfolio-card-body {
+        padding: 32px;
+    }
+
+    .portfolio-card h3 {
+        font-size: 1.5rem;
+    }
+
+    .portfolio-metrics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Animation on scroll */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.portfolio-card {
+    animation: slideInUp 0.6s ease forwards;
+    opacity: 0;
+}
+
+.portfolio-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.portfolio-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.portfolio-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.portfolio-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.portfolio-card:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.portfolio-card:nth-child(6) {
+    animation-delay: 0.6s;
+}

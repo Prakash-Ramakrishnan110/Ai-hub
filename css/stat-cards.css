@@ -1,0 +1,70 @@
+/* Modern Stat Card Styles for About Page */
+
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, rgba(0, 92, 255, 0.1), rgba(127, 0, 255, 0.05));
+    border: 1px solid rgba(0, 92, 255, 0.3);
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+    transform: rotate(45deg);
+    transition: all 0.6s;
+}
+
+.stat-card:hover::before {
+    left: 100%;
+}
+
+.stat-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: var(--primary);
+    background: linear-gradient(135deg, rgba(0, 92, 255, 0.15), rgba(127, 0, 255, 0.1));
+    box-shadow: 0 20px 60px rgba(0, 92, 255, 0.3);
+}
+
+.stat-card h3 {
+    font-size: 4rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #005CFF, #00FFFF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 15px;
+    line-height: 1;
+}
+
+.stat-card p {
+    color: var(--text);
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* Responsive for stat cards */
+@media (max-width: 768px) {
+    .about-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card h3 {
+        font-size: 3rem;
+    }
+}
